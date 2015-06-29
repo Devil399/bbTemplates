@@ -6,7 +6,7 @@ var TemplateSchema = new Schema({
   price: Number,
   url: String,
   createdBy: String,
-  createdOn: { type: Date, default: Date.now }
+  createdOn: { type: Date, default: Date() }
 });
 
 module.exports = mongoose.model('Template', TemplateSchema)
