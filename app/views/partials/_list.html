@@ -1,0 +1,9 @@
+<h1>List of templates.</h1>
+<div>
+  <ol>
+    <li ng-repeat="template in templates">
+      <a href="/#/listTemplate/{{template._id}}"><span ng-repeat="attr in template">{{attr}}&nbsp;&nbsp;</span></a>
+    </li>
+  </ol>
+  <a class="btn btn-info" href="/#/addTemplate">Add new</a>
+</div>

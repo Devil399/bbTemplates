@@ -7,7 +7,7 @@ var api = require('./app/controllers/api.js');
 var port = process.env.PORT || 8080;
 
 app.use("/api", api);
-app.use("/bbTemplates", express.static(__dirname + "/app/views"));
+app.use("/", express.static(__dirname + "/app/views"));
 
 app.listen(port);
 console.log("Magic happens on port " + port);

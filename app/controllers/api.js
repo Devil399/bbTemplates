@@ -53,11 +53,11 @@ api.route('/templates/:template_id')
             if (err){
               res.send(err);
             }
-            template.name = req.body.name;
-            template.price = req.body.price;
-            template.url = req.body.url;
-            template.createdBy = req.body.createdBy;
-            template.createdOn = req.body.createdOn;
+            if(req.body.name)template.name = req.body.name;
+            if(req.body.price)template.price = req.body.price;
+            if(req.body.url)template.url = req.body.url;
+            if(req.body.createdBy)template.createdBy = req.body.createdBy;
+            if(req.body.createdOn)template.createdOn = req.body.createdOn;
             template.save(function(err){
                 if (err){
                   res.send(err);
