@@ -1,0 +1,9 @@
+.navbar{
+  border-radius: 0px;
+  margin-bottom: 50px;
+}
+
+.navbar-inverse{
+  background-color: $navbarBg-color;
+  @include box-shadow(0 5px 5px rgba(0,0,0,0.4));
+}
