@@ -7,7 +7,7 @@ api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({extent: true}));
 
 api.use(function(req, res, next) {
-    console.log('Something is happening.');
+    console.log('Something is happening in ' + req.url);
     next();
 });
 
@@ -18,11 +18,12 @@ api.get('/', function(req, res) {
 api.route('/templates')
     .post(function(req, res){
       var template = new Template();
-      template.name = req.body.name;
-      template.price = req.body.price;
-      template.url = req.body.url;
-      template.createdBy = req.body.createdBy;
-      template.createdOn = req.body.createdOn;
+      console.log("data " + req.body.template);
+      template.name = req.body.template.name;
+      template.price = req.body.template.price;
+      template.url = req.body.template.url;
+      template.createdBy = req.body.template.createdBy;
+      template.createdOn = req.body.template.createdOn;
       template.save(function(err){
         if(err){
           res.send(err);

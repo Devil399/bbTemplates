@@ -1,13 +1,21 @@
 .panel{
+  margin: 0px 15px;
+  margin-bottom: 15px;
   border: 0px;
   background: $bodyBg-color;
   padding: 0px;
   border-radius: 0;
   @include box-shadow(0 1px 3px rgba(0,0,0,0.3));
-  @include transition(all linear 0.2s);
+  .panel-header{
+    background: white;
+    border-radius: 5px 5px 0 0;
+    @include transition(all linear 0.2s);
+    &:hover{
+      opacity: 0.7;
+    }
+  }
   .panel-body{
     background: $panelBodyBg-color;
-    border-radius: 3px 3px 0 0;
     p{
       margin-bottom: 5px;
       .fade{
@@ -19,7 +27,7 @@
     padding: 5px 15px;
     border-top: 1px solid #e7e7e7;
     box-shadow: 0 1px 0 0 #fff inset;
-    border-radius: 0 0 3px 3px;
+    border-radius: 0 0 5px 5px;
     .pull-left a{
       color: rgba(0,0,0,0.7);
       margin-right: 10px;
@@ -39,5 +47,9 @@
         color: rgba(0,0,0,0.9);
       }
     }
+  }
+  &.templatePanel{
+    display: inline-block;
+    width: 250px;
   }
 }
