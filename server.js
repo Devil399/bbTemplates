@@ -4,7 +4,7 @@ var mongoose   = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/bbTemplates');
 var api = require('./app/controllers/api.js');
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3030;
 
 app.use("/api", api);
 app.use("/", express.static(__dirname + "/app/views"));
