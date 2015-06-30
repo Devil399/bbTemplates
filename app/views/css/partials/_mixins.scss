@@ -18,3 +18,9 @@
   background: -moz-linear-gradient(center top,$color1,$color2);
   background: linear-gradient($color1,$color2);
 }
+
+@mixin transition($value){
+  transition: $value;
+  -moz-transition: $value;
+  -webkit-transition: $value;
+}
