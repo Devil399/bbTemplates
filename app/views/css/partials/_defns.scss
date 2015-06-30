@@ -1,0 +1,18 @@
+$navbarBg-color: #131418;
+$bodyBg-color: #f4f4f4;
+$panelBodyBg-color: #fff;
+$panelFooterBg-color: #f6f6f6;
+
+$filterPanelBorder-color: #dedede;
+$filterPanel-border: 1px solid $filterPanelBorder-color;
+
+
+body{
+  background-color: $bodyBg-color;
+}
+
+ul{
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}

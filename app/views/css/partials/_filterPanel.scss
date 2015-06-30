@@ -1,0 +1,35 @@
+.filter-panel{
+  border-left: $filterPanel-border;
+  .filter-search{
+    @include border-radius(10px);
+    background: url('/images/search.png') white no-repeat 9px 8px/12px !important;
+    height: 29px;
+    width: 200px;
+    padding: 4px 4px 4px 26px;
+    margin-bottom: 25px;
+  }
+  .filter-options{
+    h6{
+      color: rgba(0, 0, 0, 0.4);
+    }
+    ul li{
+      background: #f9f9f9;
+      @include linear-gradient(#fbfbfb, #f7f7f7);
+      @include box-shadow(0px 1px 0px 0px #f0f0f0);
+      border: $filterPanel-border;
+      color: #4c4b4b;
+      cursor: pointer;
+      display: block;
+      font-size: 11px;
+      font-weight: bold;
+      height: 33px;
+      line-height: 33px;
+      margin-top: -1px;
+      padding: 0 13px;
+      text-transform: uppercase;
+    }
+    ul li:hover{
+      @include linear-gradient(#f5f5f5,#efefef);
+    }
+  }
+}
