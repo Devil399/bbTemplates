@@ -8,6 +8,7 @@ api.use(bodyParser.urlencoded({extent: true}));
 
 api.use(function(req, res, next) {
     console.log('Something is happening in ' + req.url);
+    console.log(req.method);
     next();
 });
 
