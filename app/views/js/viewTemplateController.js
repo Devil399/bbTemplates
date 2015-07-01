@@ -1,6 +1,5 @@
 bbTemplates.controller("viewTemplateController", function($scope, $http, $routeParams, $location){
   var url = "/api/templates/" + $routeParams.id;
-  $scope.url = url;
   $http.get(url).success(function(response){
     $scope.template = response;
   });
