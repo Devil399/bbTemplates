@@ -1,4 +1,4 @@
-bbTemplates.controller("viewTemplateController", function($scope, $http, $routeParams, $location){
+bbTemplates.controller("viewTemplateController", function($scope, $http, $routeParams, $window, $location){
   var url = "/api/templates/" + $routeParams.id;
   $http.get(url).success(function(response){
     $scope.template = response;
@@ -11,6 +11,7 @@ bbTemplates.controller("viewTemplateController", function($scope, $http, $routeP
       headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
     }).success(function(response){
       if(response.message === "Template updated!"){
+        $window.location.reload();
         $location.path("/");
       }else{
         alert(response);
@@ -20,7 +21,7 @@ bbTemplates.controller("viewTemplateController", function($scope, $http, $routeP
   $scope.delete = function(){
     $http.delete(url).success(function(response){
       if(response.message === "Template deleted!"){
-        $location.path("/");
+        $window.location.reload("/");
       }else{
         alert(response);
       }

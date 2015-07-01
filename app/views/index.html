@@ -33,7 +33,7 @@
         <div class="col-md-9">
           <div class="templatePanel panel" ng-repeat="template in templates | filter:search | orderBy:filterBy">
             <div class="panel-header">
-              <a href="{{template.url}}"><img src="/images/cover.jpg" alt="" width="100%" height="158px"/></a>
+              <a href="{{template.url}}"><img src="/images/templates/{{template._id}}" alt="" width="100%" height="158px"/></a>
             </div>
             <div class="panel-body">
               <p><a href="{{template.url}}"><strong>{{template.name}}</strong></a></p>
