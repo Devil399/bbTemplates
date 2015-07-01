@@ -1,9 +1,12 @@
-<h1>Hello</h1>
-<form action={{url}} method="post">
-  <input type="text" name="name" ng-model="template.name" required>
-  <input type="text" name="price" ng-model="template.price" required>
-  <input type="text" name="url" ng-model="template.url" required>
-  <input type="text" name="createdBy" ng-model="template.createdBy" required>
-  <input type="submit" class="btn btn-warning" value="Save">
-  <input type="button" class="btn btn-danger" ng-click="delete()" value="Delete">
-</form>
+<div class="col-md-8 col-md-offset-2 panel">
+  <div class="panel-body">
+    <input type="text" name="name" ng-model="template.name" placeholder="Name" required>
+    <input type="text" name="price" ng-model="template.price" placeholder="Price" required>
+    <input type="text" name="url" ng-model="template.url" placeholder="Url" required>
+    <input type="text" name="createdBy" ng-model="template.createdBy" placeholder="CreatedBy" required>
+  </div>
+  <div class="panel-footer">
+    <input type="button" class="btn btn-warning" ng-click="put()" value="Save">
+    <input type="button" class="btn btn-danger" ng-click="delete()" value="Delete">
+  </div>
+</div>

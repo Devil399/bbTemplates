@@ -7,7 +7,7 @@ api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({extent: true}));
 
 api.use(function(req, res, next) {
-    console.log('Something is happening.');
+    console.log('Something is happening in ' + req.url);
     next();
 });
 
@@ -18,11 +18,10 @@ api.get('/', function(req, res) {
 api.route('/templates')
     .post(function(req, res){
       var template = new Template();
-      template.name = req.body.name;
-      template.price = req.body.price;
-      template.url = req.body.url;
-      template.createdBy = req.body.createdBy;
-      template.createdOn = req.body.createdOn;
+      template.name = req.body.template.name;
+      template.price = req.body.template.price;
+      template.url = req.body.template.url;
+      template.createdBy = req.body.template.createdBy;
       template.save(function(err){
         if(err){
           res.send(err);
@@ -53,10 +52,10 @@ api.route('/templates/:template_id')
             if (err){
               res.send(err);
             }
-            template.name = req.body.name;
-            template.price = req.body.price;
-            template.url = req.body.url;
-            template.createdBy = req.body.createdBy;
+            template.name = req.body.template.name;
+            template.price = req.body.template.price;
+            template.url = req.body.template.url;
+            template.createdBy = req.body.template.createdBy;
             template.save(function(err){
                 if (err){
                   res.send(err);
@@ -72,7 +71,7 @@ api.route('/templates/:template_id')
             if (err){
               res.send(err);
             }
-            res.json({ message: 'Successfully deleted' });
+            res.json({ message: 'Template deleted!' });
         });
     });
 

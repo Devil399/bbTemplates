@@ -1,11 +1,7 @@
 var bbTemplates = angular.module("bbTemplates", ['ngRoute']);
 
 bbTemplates.config(['$routeProvider',function($routeProvider){
-  $routeProvider.when('/listTemplate',{
-    templateUrl: './partials/_list.html',
-    controller: 'listTemplateController'
-  }).
-  when('/listTemplate/:id',{
+  $routeProvider.when('/:id',{
     templateUrl: './partials/_view.html',
     controller: 'viewTemplateController'
   }).
@@ -14,6 +10,6 @@ bbTemplates.config(['$routeProvider',function($routeProvider){
     controller: 'addTemplateController'
   }).
   otherwise({
-    redirectTo: '/listTemplate'
+    redirectTo: '/'
   });
 }]);
