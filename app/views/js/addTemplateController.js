@@ -1,4 +1,5 @@
 bbTemplates.controller("addTemplateController", function($scope, $http, $location){
+  
   var url = "/api/templates/";
   $scope.url = url;
   $scope.post = function(){
