@@ -18,12 +18,10 @@ api.get('/', function(req, res) {
 api.route('/templates')
     .post(function(req, res){
       var template = new Template();
-      console.log("data " + req.body.template);
       template.name = req.body.template.name;
       template.price = req.body.template.price;
       template.url = req.body.template.url;
       template.createdBy = req.body.template.createdBy;
-      template.createdOn = req.body.template.createdOn;
       template.save(function(err){
         if(err){
           res.send(err);
@@ -54,10 +52,10 @@ api.route('/templates/:template_id')
             if (err){
               res.send(err);
             }
-            template.name = req.body.name;
-            template.price = req.body.price;
-            template.url = req.body.url;
-            template.createdBy = req.body.createdBy;
+            template.name = req.body.template.name;
+            template.price = req.body.template.price;
+            template.url = req.body.template.url;
+            template.createdBy = req.body.template.createdBy;
             template.save(function(err){
                 if (err){
                   res.send(err);
@@ -73,7 +71,7 @@ api.route('/templates/:template_id')
             if (err){
               res.send(err);
             }
-            res.json({ message: 'Successfully deleted' });
+            res.json({ message: 'Template deleted!' });
         });
     });
 

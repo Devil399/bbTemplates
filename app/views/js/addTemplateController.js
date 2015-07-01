@@ -7,9 +7,9 @@ bbTemplates.controller("addTemplateController", function($scope, $http, $locatio
       headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
     }).success(function(response){
       if(response.message === "Template created!"){
-        $location.path("/#/listTemplate");
+        $location.path("/");
       }else{
-        alert(response.message);
+        alert(response);
       }
     });
   };
