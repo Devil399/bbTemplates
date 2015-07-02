@@ -1,4 +1,8 @@
 bbTemplates.controller("viewTemplateController", function($scope, $http, $routeParams, $window, $location){
+  $('#modal-updateTemplate').modal('show');
+  $('#modal-updateTemplate').on('hidden.bs.modal', function () {
+    window.location.replace("/");
+  });
   var url = "/api/templates/" + $routeParams.id;
   $http.get(url).success(function(response){
     $scope.template = response;

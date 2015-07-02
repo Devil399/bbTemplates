@@ -1,12 +1,32 @@
-<div class="col-md-8 col-md-offset-2 panel">
-  <div class="panel-body">
-    <input type="text" name="name" ng-model="template.name" placeholder="Name" required>
-    <input type="text" name="price" ng-model="template.price" placeholder="Price" required>
-    <input type="text" name="url" ng-model="template.url" placeholder="Url" required>
-    <input type="text" name="createdBy" ng-model="template.createdBy" placeholder="CreatedBy" required>
-  </div>
-  <div class="panel-footer">
-    <input type="button" class="btn btn-warning" ng-click="put()" value="Save">
-    <input type="button" class="btn btn-danger" ng-click="delete()" value="Delete">
+<!-- Modal for edit/delete-->
+<div id="modal-updateTemplate" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title">Edit/Delete</h2>
+      </div>
+      <div class="modal-body">
+          <div class="panel add-form">
+            <div class="panel-body ">
+              Name:<br/>
+              <input type="text" name="name" ng-model="template.name" placeholder="Enter name" required><br/>
+              Price:<br/>
+              <input type="text" name="price" ng-model="template.price" placeholder="Enter Price" required><br/>
+              Template URL:<br/>
+              <input type="text" name="url" ng-model="template.url" placeholder="Enter Url" required><br/>
+              Created By:<br/>
+              <input type="text" name="createdBy" ng-model="template.createdBy" placeholder="CreatedBy" required>
+            </div>
+            <div class="panel-footer">
+              <input type="button" class="btn btn-warning" ng-click="put()" value="Save" data-dismiss="modal">
+              <input type="button" class="btn btn-danger" ng-click="delete()" value="Delete" data-dismiss="modal">
+            </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
