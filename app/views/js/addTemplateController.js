@@ -1,4 +1,8 @@
 bbTemplates.controller("addTemplateController", function($scope, $http, $window, $location){
+  $('#modal-addNewTemplate').modal('show');
+  $('#modal-addNewTemplate').on('hidden.bs.modal', function () {
+    window.location.replace("/");
+  });
   var url = "/api/templates";
   $scope.post = function(){
     $http({
@@ -9,7 +13,6 @@ bbTemplates.controller("addTemplateController", function($scope, $http, $window,
     }).success(function(response){
       if(response.message === "Template created!"){
         upload(response.id, function(res){
-          console.log(res);
           if(res === "Image uploaded!"){
             $window.location.reload();
             $location.path("/");

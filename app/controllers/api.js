@@ -3,7 +3,6 @@ var bodyParser = require('body-parser');
 var Busboy = require('busboy');
 var fs = require('fs');
 var path = require('path');
-var os = require('os');
 var Template = require('../models/templates.js');
 var api = express();
 
@@ -26,6 +25,7 @@ api.route('/templates')
       template.price = req.body.template.price;
       template.url = req.body.template.url;
       template.createdBy = req.body.template.createdBy;
+      template.cretedOn = new Date();
       template.save(function(err, newTemplate){
         if(err){
           res.send(err);
@@ -90,6 +90,7 @@ api.route('/templates/:template_id')
             if (err){
               res.send(err);
             }
+            fs.unlink(path.join(__dirname+'/../views/images/templates/', req.params.template_id));
             res.json({ message: 'Template deleted!' });
         });
     });
