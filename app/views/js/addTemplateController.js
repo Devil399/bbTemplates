@@ -3,6 +3,13 @@ bbTemplates.controller("addTemplateController", function($scope, $http, $window,
   $('#modal-addNewTemplate').on('hidden.bs.modal', function () {
     window.location.replace("/");
   });
+  document.getElementById('selectedFile').onchange = function(e) {
+    //JS to replace the current image on upload, will be saved when submitted
+    var imageFile = this.files[0];
+    var url = window.URL.createObjectURL(imageFile);
+    document.getElementById('upldImg').src = url;
+    console.log(url);
+  }
   var url = "/api/templates";
   $scope.post = function(){
     $http({
@@ -27,6 +34,7 @@ bbTemplates.controller("addTemplateController", function($scope, $http, $window,
   };
 
   var upload = function(id, callback){
+
     var file = $scope.myFile;
     var url = "/api/templates/" + id + "/image";
     var fd = new FormData();

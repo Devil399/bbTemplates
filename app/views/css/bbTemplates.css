@@ -117,11 +117,14 @@ ul {
     #change-image{
       float:right;
       position: relative;
-      bottom: 25px;
+      bottom: 27px;
       border: none;
       padding: 3px 5px;
       background-color: rgba(122, 122, 122, 0.7);
       color: white;
+    }
+    #upldImg:hover{
+      cursor: pointer;
     }
 
 

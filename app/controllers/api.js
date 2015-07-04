@@ -42,20 +42,7 @@ api.route('/templates')
         });
     });
 
-api.route('/templates/:template_id/image')
-    .post(function(req, res){
-      var busboy = new Busboy({ headers: req.headers });
-      busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-        var saveTo = path.join(__dirname+'/../views/images/templates/', req.params.template_id);
-        console.log(saveTo);
-        file.pipe(fs.createWriteStream(saveTo));
-      });
-      busboy.on('finish', function() {
-        res.writeHead(200, { 'Connection': 'close' });
-        res.end("Image uploaded!");
-      });
-      return req.pipe(busboy);
-    });
+
 
 api.route('/templates/:template_id')
     .get(function(req, res){
@@ -75,11 +62,12 @@ api.route('/templates/:template_id')
             template.price = req.body.template.price;
             template.url = req.body.template.url;
             template.createdBy = req.body.template.createdBy;
+            //template.id = req.body.template._id;
             template.save(function(err){
                 if (err){
                   res.send(err);
                 }
-                res.json({ message: 'Template updated!' });
+                res.json({ message: 'Template updated!'});
             });
         });
     })
@@ -93,6 +81,22 @@ api.route('/templates/:template_id')
             fs.unlink(path.join(__dirname+'/../views/images/templates/', req.params.template_id));
             res.json({ message: 'Template deleted!' });
         });
+    });
+
+api.route('/templates/:template_id/image')
+    .post(function(req, res){
+      var busboy = new Busboy({ headers: req.headers });
+
+      busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+        var saveTo = path.join(__dirname+'/../views/images/templates/', req.params.template_id);
+        console.log(saveTo);
+        file.pipe(fs.createWriteStream(saveTo));
+      });
+      busboy.on('finish', function() {
+        res.writeHead(200, { 'Connection': 'close' });
+        res.end("Image uploaded!");
+      });
+      return req.pipe(busboy);
     });
 
 module.exports = api;

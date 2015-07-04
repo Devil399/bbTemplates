@@ -12,8 +12,9 @@
           <div class="panel add-form">
             <div class="panel-body ">
               <div class="col-md-5">
-                <img src="/images/templates/{{template._id}}" style="width:100%">
-                <button id="change-image"><i class="fa fa-camera"></i>&nbsp;&nbsp;Change</button>
+                <img src="/images/templates/{{template._id}}" style="width:100%" id="viewImg" lowsrc="/images/spinner.gif">
+                <button id="change-image" onclick="document.getElementById('selectedFile').click();"><i class="fa fa-camera"></i>&nbsp;&nbsp;Change</button>
+                <input type="file" id="selectedFile" style="display: none;"  file-model="myFile" class="btn upld"/>
               </div>
               <div class="col-md-7">
                 <br/>
@@ -27,16 +28,6 @@
                 <input type="text" name="name" ng-model="template.createdBy" required><br/>
               </div>
 
-              <!-- <img src="/images/templates/{{template._id}}" height="200px" style="text-align: center;">
-              Name:
-              <input type="text" name="name" ng-model="template.name" placeholder="Enter name" required><br/>
-              Price:
-              <input type="text" name="price" ng-model="template.price" placeholder="Enter Price" required><br/>
-              Template URL:
-              <input type="text" name="url" ng-model="template.url" placeholder="Enter Url" required><br/>
-              Created By:
-              <input type="text" name="createdBy" ng-model="template.createdBy" placeholder="CreatedBy" required><br/> -->
-              
             </div>
             <div class="panel-footer">
               <input type="button" class="btn btn-warning" ng-click="put()" value="Save" data-dismiss="modal">
@@ -48,3 +39,4 @@
 
   </div>
 </div>
+
