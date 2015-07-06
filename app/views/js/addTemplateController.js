@@ -8,7 +8,7 @@ bbTemplates.controller("addTemplateController", function($scope, $http, $window,
     var imageFile = this.files[0];
     var url = window.URL.createObjectURL(imageFile);
     document.getElementById('upldImg').src = url;
-    console.log(url);
+    document.getElementById('btnText').innerHTML = "Change";
   }
   var url = "/api/templates";
   $scope.post = function(){
