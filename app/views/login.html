@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>bbTemplates</title>
+    <link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/bbTemplates.css">
+  </head>
+
+  <body ng-app="bbTemplates">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">BBtemplates</a>
+        </div><!-- /.navbar header -->
+    </nav>
+
+    <main class="container" ng-controller="loginController">
+      <div class="row">
+        <div class="col-md-8 col-md-offset panel">
+          <div class="panel-body">
+            <input type="email" name="email" ng-model="user.email" placeholder="Email" required>
+            <input type="password" name="password" ng-model="user.password" placeholder="Password" required>
+            <button type="button" class="btn btn-info" name="Login" ng-click="login()">Login</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div ng-view></div>
+
+
+    <script type="text/javascript" src="./libs/angular/angular.min.js"></script>
+    <script type="text/javascript" src="./libs/angular/angular-route.min.js"></script>
+    <script type="text/javascript" src="./js/loginApp.js"></script>
+    <script type="text/javascript" src="./js/loginController.js"></script>
+    <script type="text/javascript" src="./libs/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="./libs/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

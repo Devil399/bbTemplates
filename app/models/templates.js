@@ -6,9 +6,11 @@ var TemplateSchema = new Schema({
   price: Number,
   url: String,
   createdBy: String,
-  createdOn: Date,
-  likes: { type: Number, default: 0},
-  dislikes: { type: Number, default: 0}
+  createdOn: {type: Date, default: new Date()},
+  likedBy: [String],
+  likes: {type: Number, default: 0},
+  dislikes: {type: Number, default: 0},
+  dislikedBy: [String]
 });
 
 module.exports = mongoose.model('Template', TemplateSchema);
