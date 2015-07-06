@@ -12,22 +12,25 @@ bbTemplates.controller("viewTemplateController", function($scope, $http, $routeP
       method: 'POST',
       url: url,
       data: $.param({template: $scope.template}),
-      headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+      headers: {'x-access-token': localStorage.getItem('token'), 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
     }).success(function(response){
       if(response.message === "Template updated!"){
         $window.location.reload();
         $location.path("/");
       }else{
-        alert(response);
+        alert(JSON.stringify(response));
       }
     });
   }
   $scope.delete = function(){
-    $http.delete(url).success(function(response){
+    $http.delete(url,{
+      headers: {'x-access-token': localStorage.getItem('token')}
+    }).success(function(response){
       if(response.message === "Template deleted!"){
-        $window.location.reload("/");
+        $window.location.reload();
+        $location.path("/");
       }else{
-        alert(response);
+        alert(JSON.stringify(response));
       }
     });
   }

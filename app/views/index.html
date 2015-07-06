@@ -9,7 +9,7 @@
   </head>
 
   <body ng-app="bbTemplates">
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse" ng-controller="navbarController">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="/">BBtemplates</a>
@@ -18,10 +18,13 @@
         <div class="collapse navbar-collapse pull-right">
           <ul class="nav navbar-nav">
             <li>
-              <a href="/#/addTemplate">Add new template</a>
+              <a ng-if="admin" href="/#/addTemplate">Add new template</a>
             </li>
             <li>
-              <a href="/">Logout</a>
+              <a href="/login.html" ng-if="!loggedIn">Login</a>
+            </li>
+            <li>
+              <a href="" ng-click="logout()" ng-if="loggedIn">Logout</a>
             </li>
           </ul>
         </div><!-- /.navbar-collapse -->
@@ -47,7 +50,7 @@
                 <a href=""><i class="fa fa-thumbs-o-down"></i>{{template.dislikes}}</a>
               </div>
               <div class="pull-right">
-                <a href="/#/{{template._id}}"><i class="fa fa-pencil-square-o"></i></a>
+                <a ng-if="admin" href="/#/{{template._id}}"><i class="fa fa-pencil-square-o"></i></a>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -62,11 +65,14 @@
             </div>
             <div class="row">
               <div class="col-md-12 filter-options">
-                <h6>FILTER BY</h6>
+                <h6>ORDER BY</h6>
                 <ul>
-                  <li ng-click="filter('likes')">Popularity</li>
-                  <li ng-click="filter('price')">Price</li>
-                  <li ng-click="filter('date')">Date</li>
+                  <li ng-click="filter('-likes')">Likes</li>
+                  <li ng-click="filter('-dislikes')">Dislikes</li>
+                  <li ng-click="filter('price')">Price - Lowest</li>
+                  <li ng-click="filter('-price')">Price - Highest</li>
+                  <li ng-click="filter('-createdOn')">Date - Newest</li>
+                  <li ng-click="filter('createdOn')">Date - Oldest</li>
                 </ul>
               </div>
             </div>
@@ -78,9 +84,11 @@
     <div ng-view></div>
 
 
+
     <script type="text/javascript" src="./libs/angular/angular.min.js"></script>
     <script type="text/javascript" src="./libs/angular/angular-route.min.js"></script>
     <script type="text/javascript" src="./js/app.js"></script>
+    <script type="text/javascript" src="./js/navbarController.js"></script>
     <script type="text/javascript" src="./js/listTemplateController.js"></script>
     <script type="text/javascript" src="./js/addTemplateController.js"></script>
     <script type="text/javascript" src="./js/viewTemplateController.js"></script>

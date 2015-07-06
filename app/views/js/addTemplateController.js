@@ -9,7 +9,7 @@ bbTemplates.controller("addTemplateController", function($scope, $http, $window,
       method: 'POST',
       url: url,
       data: $.param({template: $scope.template}),
-      headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+      headers: {'x-access-token': localStorage.getItem('token'), 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
     }).success(function(response){
       if(response.message === "Template created!"){
         upload(response.id, function(res){
@@ -17,11 +17,11 @@ bbTemplates.controller("addTemplateController", function($scope, $http, $window,
             $window.location.reload();
             $location.path("/");
           }else{
-            alert(res);
+            alert(JSON.stringify(res));
           }
         });
       }else{
-        alert(response);
+        alert(JSON.stringify(response));
       }
     });
   };
@@ -33,7 +33,7 @@ bbTemplates.controller("addTemplateController", function($scope, $http, $window,
     fd.append('file', file);
     $http.post(url, fd, {
         transformRequest: angular.identity,
-        headers: {'Content-Type': undefined}
+        headers: {'x-access-token': localStorage.getItem('token'), 'Content-Type': undefined}
     })
     .success(function(response){
       callback(response)

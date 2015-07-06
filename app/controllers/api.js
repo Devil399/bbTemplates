@@ -6,16 +6,55 @@ var path = require('path');
 var Template = require('../models/templates.js');
 var api = express();
 
+var jwt = require('jsonwebtoken');
+var secret =  "5TYQdOUzC5z3o0Pnu0DxJ1r5hmpHWQmvmYfCR1LXz4GBAbmnHRZu3Bo9jRMqfl8cEa60TwyuWazqsxSUPz3tod1jQFzYOhVUoh23ND89wHVcWie7Ipciid3QsF5g4E5i6J6lWDIndIqePgFxHQME0Vh0uxTMr9hTuaM69WSCdUZy3spZiZ9y";
+api.set('superSecret', secret);
+
 api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({extent: true}));
 
-api.use(function(req, res, next) {
-    console.log('Something is happening in ' + req.url);
-    next();
-});
+api.route('/templates')
+    .get(function(req, res) {
+        Template.find({}, function(err, templates) {
+            if (err){
+              res.send(err);
+            }
+            res.json(templates);
+        });
+    });
 
-api.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });
+api.route('/templates/:template_id')
+    .get(function(req, res){
+        Template.findById(req.params.template_id, function(err, template){
+            if (err){
+              res.send(err);
+            }
+            res.json(template);
+        });
+    })
+
+
+api.use(function(req, res, next) {
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    if (token) {
+      jwt.verify(token, api.get('superSecret'), function(err, decoded) {
+        if (err) {
+          return res.json({ success: false, message: 'Failed to authenticate token.' });
+        } else {
+          if(decoded.admin === true){
+            req.userId = decoded._id;
+            next();
+          }else{
+            return res.json({ success: false, message: 'Access Denied' });
+          }
+        }
+      });
+    } else {
+      return res.status(403).send({
+          success: false,
+          message: 'No token provided.'
+      });
+    }
 });
 
 api.route('/templates')
@@ -25,22 +64,14 @@ api.route('/templates')
       template.price = req.body.template.price;
       template.url = req.body.template.url;
       template.createdBy = req.body.template.createdBy;
-      template.cretedOn = new Date();
       template.save(function(err, newTemplate){
         if(err){
           res.send(err);
         }
         res.json({message: "Template created!", id: newTemplate._id});
       });
-    })
-    .get(function(req, res) {
-        Template.find(function(err, templates) {
-            if (err){
-              res.send(err);
-            }
-            res.json(templates);
-        });
     });
+
 
 api.route('/templates/:template_id/image')
     .post(function(req, res){
@@ -57,15 +88,45 @@ api.route('/templates/:template_id/image')
       return req.pipe(busboy);
     });
 
-api.route('/templates/:template_id')
+api.route('/templates/:template_id/like')
     .get(function(req, res){
         Template.findById(req.params.template_id, function(err, template){
-            if (err){
-              res.send(err);
+            if(template.likedBy.indexOf(req.userId) >= 0){
+              res.json({ success: false, message: "Template already liked!" });
+            }else{
+              template.likedBy.push(req.userId);
+              template.likes += 1;
+              template.save(function(err, Temp){
+                  if (err){
+                    res.json({ success: false, message: err });
+                  }else{
+                    res.json({ success: true, message: "Template liked!" });
+                  }
+              });
             }
-            res.json(template);
         });
-    })
+    });
+
+api.route('/templates/:template_id/dislike')
+    .get(function(req, res){
+        Template.findById(req.params.template_id, function(err, template){
+            if(template.likedBy.indexOf(req.userId) >= 0){
+              res.json({ success: false, message: "Template already disliked!" });
+            }else{
+              template.dislikedBy.push(req.userId);
+              template.dislikes += 1;
+              template.save(function(err, Temp){
+                  if (err){
+                    res.json({ success: false, message: err });
+                  }else{
+                    res.json({ success: true, message: "Template disliked!" });
+                  }
+              });
+            }
+        });
+    });
+
+api.route('/templates/:template_id')
     .post(function(req, res) {
         Template.findById(req.params.template_id, function(err, template){
             if (err){
