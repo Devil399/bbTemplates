@@ -1,5 +1,5 @@
 body {
-  background-color: #f4f4f4; }
+  background-color: #FDFDFD; }
 
 ul {
   list-style: none;
@@ -8,7 +8,7 @@ ul {
 
 .navbar {
   border-radius: 0px;
-  margin-bottom: 50px; }
+  margin-bottom: 0;}
 
 .navbar-inverse {
   background-color: #131418;
@@ -17,10 +17,7 @@ ul {
   -ms-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4); }
 
-.filter-panel {
-  border-left: 1px solid #dedede; }
-
-  .filter-panel .filter-search {
+ filter-search {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
@@ -31,36 +28,6 @@ ul {
     padding: 4px 4px 4px 26px;
     margin-bottom: 25px; }
 
-  .filter-panel .filter-options h6 {
-    color: rgba(0, 0, 0, 0.4); }
-
-  .filter-panel .filter-options ul li {
-    background: #f9f9f9;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fbfbfb), to(#f7f7f7));
-    background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#fbfbfb), to(#f7f7f7));
-    background: -moz-linear-gradient(center top, #fbfbfb, #f7f7f7);
-    background: linear-gradient(#fbfbfb, #f7f7f7);
-    -webkit-box-shadow: 0px 1px 0px 0px #f0f0f0;
-    -moz-box-shadow: 0px 1px 0px 0px #f0f0f0;
-    -ms-box-shadow: 0px 1px 0px 0px #f0f0f0;
-    box-shadow: 0px 1px 0px 0px #f0f0f0;
-    border: 1px solid #dedede;
-    color: #4c4b4b;
-    cursor: pointer;
-    display: block;
-    font-size: 11px;
-    font-weight: bold;
-    height: 33px;
-    line-height: 33px;
-    margin-top: -1px;
-    padding: 0 13px;
-    text-transform: uppercase; }
-
-  .filter-panel .filter-options ul li:hover {
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f5f5f5), to(#efefef));
-    background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#f5f5f5), to(#efefef));
-    background: -moz-linear-gradient(center top, #f5f5f5, #efefef);
-    background: linear-gradient(#f5f5f5, #efefef); }
 
 .panel {
   margin-right: 15px;
@@ -72,8 +39,12 @@ ul {
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   -ms-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
-
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); 
+  
+}
+.temp-panels{
+  text-align:center;
+}
   .panel .panel-header {
     background: white;
     border-radius: 5px 5px 0 0;
@@ -85,16 +56,21 @@ ul {
       opacity: 0.7; }
 
   .panel .panel-body {
-    background: #fff; }
+    background: #fff; 
+  }
 
     .panel .panel-body p {
-      margin-bottom: 5px; }
+      margin-bottom: 0px; 
+      }
+
 
       .panel .panel-body p .fade {
         opacity: 0.4; }
-
+  .panel-body{
+    padding: 5px;
+  }
   .panel .panel-footer {
-    padding: 5px 15px;
+    padding: 5px ;
     border-top: 1px solid #e7e7e7;
     box-shadow: 0 1px 0 0 #fff inset;
     border-radius: 0 0 5px 5px; }
@@ -120,7 +96,20 @@ ul {
 
   .panel.templatePanel {
     display: inline-block;
-    width: 250px; }
+    width: 31%; }
+
+    @media screen and (max-width: 850px){
+      .panel.templatePanel{
+        display: inline-block;
+        width: 46%;
+      }
+    }
+    @media screen and (max-width: 500px){
+      .panel.templatePanel{
+        display: inline-block;
+        width: 95%;
+      }
+    }
 
 .add-form{
   text-align: center;
@@ -145,4 +134,98 @@ ul {
     }
 
 
+    .filter-options>.btn-group-vertical>label{
+      width:90%;
+      float: left;
+      text-align: left;
+    }
+
+
+.filter-row{
+  border: 1px solid #CCCCCC;
+  height: 50px;
+  padding: 7px;
+  margin-top: 10px ;
+  margin-bottom: 30px;
+  border-radius: 10px;;
+  font-size: 0.8em;
+  background: -webkit-linear-gradient(#F6F6F6, #E9E9E9); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#F6F6F6, #E9E9E9); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#F6F6F6, #E9E9E9); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#F6F6F6, #E9E9E9);
+}
+
+@media screen and (max-width: 653px) {
+    .filter-row{
+      border: 1px solid #CCCCCC;
+      height: 80px;
+      padding: 7px;
+      margin-top: 10px ;
+      margin-bottom: 30px;
+      border-radius: 10px;;
+      font-size: 0.8em;
+      background: -webkit-linear-gradient(#F6F6F6, #E9E9E9); /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient(#F6F6F6, #E9E9E9); /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient(#F6F6F6, #E9E9E9); /* For Firefox 3.6 to 15 */
+      background: linear-gradient(#F6F6F6, #E9E9E9);
+
+    }
+}
+@media screen and (max-width: 414px) {
+    .filter-row{
+      border: 1px solid #CCCCCC;
+      height: 120px;
+      padding: 7px;
+      margin-top: 10px ;
+      margin-bottom: 30px;
+      border-radius: 10px;;
+      font-size: 0.8em;
+      background: -webkit-linear-gradient(#F6F6F6, #E9E9E9); /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient(#F6F6F6, #E9E9E9); /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient(#F6F6F6, #E9E9E9); /* For Firefox 3.6 to 15 */
+      background: linear-gradient(#F6F6F6, #E9E9E9);
+
+    }
+}
+.sort-by{
+  background: -webkit-linear-gradient(#F6F6F6, #E9E9E9); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#F6F6F6, #E9E9E9); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#F6F6F6, #E9E9E9); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#F6F6F6, #E9E9E9);
+  color: #8C8C8C;
+}
+.sort-text{
+  font-size: 0.95em;;
+}
+
+.sort-by>div>label{
+  color: #8C8C8C;
+  padding-left: 7px;
+  padding-right: 8px;
+}
+.filter-search{
+  border-radius: 20px;
+  padding: 8px 10px 7px 40px;
+  background-image: url('../images/search.png');
+  background-repeat: no-repeat;
+  background-position: 7px 4px;
+}
+.head-part{
+  height: 150px;;
+  background: -webkit-linear-gradient(#A3A3A3, white); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#A3A3A3, white); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#A3A3A3, white); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#A3A3A3, white);
+}
+
+.login{
+  text-align: center;
+  margin: 30px ;
+  //padding: 20px;
+}
+.login>.panel-body>input{
+  width:80%;
+  padding: 10px 20px;
+  margin: 10px 5%;
+}
 /*# sourceMappingURL=bbTemplates.css.map */

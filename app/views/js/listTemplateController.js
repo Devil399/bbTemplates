@@ -13,6 +13,7 @@ bbTemplates.controller("listTemplateController", function($scope, $http){
   });
   $scope.filterBy = '-likes';
   $scope.filter = function(filterBy){
+    
     $scope.filterBy = filterBy;
   }
 });

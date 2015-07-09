@@ -37,23 +37,24 @@ login.route('/login')
     });
   });
 
-// login.get('/setup', function(req, res) {
-//
-//     // create a sample user
-//     var user = new User({
-//       name: '',
-//       email: '',
-//     });
-//
-//     user.setPassword('');
-//
-//     // save the sample user
-//     user.save(function(err) {
-//       if (err) throw err;
-//       console.log('User saved successfully');
-//       res.json({ success: "user saved" });
-//     });
-//   });
+login.get('/setup', function(req, res) {
+
+    // create a sample user
+    var user = new User({
+      name: 'Shashank',
+      email: 'sshekhar1094@gmail.com',
+      admin: true
+    });
+
+    user.setPassword('admin');
+
+    // save the sample user
+    user.save(function(err) {
+      if (err) throw err;
+      console.log('User saved successfully');
+      res.json({ success: "user saved" });
+    });
+  });
 
 login.get('/users', function(req, res) {
   User.find({}, function(err, users) {
