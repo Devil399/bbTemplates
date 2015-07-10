@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse pull-right">
           <ul class="nav navbar-nav">
             <li>
-              <a href="/search.html">Search</a>
+              <a ng-if="admin" href="/search.html">Search</a>
             </li>
             <li>
               <a ng-if="admin" href="/#/addTemplate">Add new template</a>
@@ -36,6 +36,28 @@
 
     <main class="container" ng-controller="listTemplateController">
       <div class="row">
+        <div class="col-md-3 hidden-sm hidden-xs filter-panel">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="text" name="name" value="" class="filter-search form-control" placeholder="Search.." ng-model="search">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 filter-options">
+                <h6>ORDER BY</h6>
+                <ul>
+                  <li ng-click="filter('-likes')">Likes</li>
+                  <li ng-click="filter('-dislikes')">Dislikes</li>
+                  <li ng-click="filter('price')">Price - Lowest</li>
+                  <li ng-click="filter('-price')">Price - Highest</li>
+                  <li ng-click="filter('-createdOn')">Date - Newest</li>
+                  <li ng-click="filter('createdOn')">Date - Oldest</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div> <!-- Filter panel -->
         <div class="col-md-9">
           <div class="templatePanel panel" ng-repeat="template in templates | filter:search | orderBy:filterBy">
             <div class="panel-header">
@@ -59,28 +81,7 @@
             </div>
           </div>
         </div> <!-- Template panels -->
-        <div class="col-md-3 hidden-sm hidden-xs filter-panel">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-12">
-                <input type="text" name="name" value="" class="filter-search form-control" placeholder="Search.." ng-model="search">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 filter-options">
-                <h6>ORDER BY</h6>
-                <ul>
-                  <li ng-click="filter('-likes')">Likes</li>
-                  <li ng-click="filter('-dislikes')">Dislikes</li>
-                  <li ng-click="filter('price')">Price - Lowest</li>
-                  <li ng-click="filter('-price')">Price - Highest</li>
-                  <li ng-click="filter('-createdOn')">Date - Newest</li>
-                  <li ng-click="filter('createdOn')">Date - Oldest</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div> <!-- Filter panel -->
+
       </div>
     </main>
 

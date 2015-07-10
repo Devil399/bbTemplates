@@ -23,6 +23,59 @@ api.route('/templates')
         });
     });
 
+api.route('/templates/search')
+    .post(function(req, res) {
+        var name = new RegExp(req.body.name, 'i');
+        var url = new RegExp(req.body.url, 'i');
+        var createdBy = new RegExp(req.body.createdBy, 'i');
+        var likesStart = 0;
+        var likesEnd = 999999999;
+        if(req.body.likesStart){
+          likesStart = req.body.likesStart;
+        }
+        if(req.body.likesEnd){
+          likesEnd = req.body.likesEnd;
+        }
+        var dislikesStart = 0;
+        var dislikesEnd = 999999999;
+        if(req.body.dislikesStart){
+          dislikesStart = req.body.dislikesStart;
+        }
+        if(req.body.dislikesEnd){
+          dislikesEnd = req.body.dislikesEnd;
+        }
+        var priceStart = 0;
+        var priceEnd = 999999999;
+        if(req.body.priceStart){
+          priceStart = req.body.priceStart;
+        }
+        if(req.body.priceEnd){
+          priceEnd = req.body.priceEnd;
+        }
+        var dateStart = "2015-07-01T00:00:00.000Z";
+        var dateEnd = new Date();
+        if(req.body.dateStart){
+          dateStart = req.body.dateStart + "T00:00:00.000Z";
+        }
+        if(req.body.dateEnd){
+          dateEnd = req.body.dateEnd;
+        }
+        Template.find({
+          name: name,
+          url: url,
+          createdBy: createdBy,
+          likes: {$gte: likesStart, $lt: likesEnd},
+          dislikes: {$gte: dislikesStart, $lt: dislikesEnd},
+          price: {$gte: priceStart, $lt: priceEnd},
+          createdOn: {$gte: dateStart, $lt: dateEnd}
+        }, function(err, templates) {
+            if (err){
+              res.send(err);
+            }
+            res.json(templates);
+        });
+    });
+
 api.route('/templates/:template_id')
     .get(function(req, res){
         Template.findById(req.params.template_id, function(err, template){

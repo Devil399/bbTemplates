@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./css/bbTemplates.css">
   </head>
 
-  <body ng-app="bbTemplates">
+  <body ng-app="bbTemplates" class="login">
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -18,7 +18,7 @@
 
     <main class="container" ng-controller="loginController">
       <div class="row">
-        <div class="col-md-8 col-md-offset panel">
+        <div class="col-md-4 col-md-offset-4 panel">
           <div class="panel-body">
             <input type="email" name="email" ng-model="user.email" placeholder="Email" required>
             <input type="password" name="password" ng-model="user.password" placeholder="Password" required>
