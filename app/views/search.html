@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./libs/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/bbTemplates.css">
-    <link rel="stylesheet" type="text/css" href="./DataTables-1.10.7/media/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="./DataTables-1.10.7/extensions/TableTools/css/dataTables.tableTools.min.css">
+    <link rel="stylesheet" type="text/css" href="./libs/dataTable/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="./libs/dataTable/extensions/TableTools/css/dataTables.tableTools.min.css">
   </head>
 
   <body ng-app="bbTemplates" >
@@ -46,8 +46,9 @@
             </table> -->
 
                  <div class="dateControlBlock">
-                        Between <input type="text" name="dateStart" id="dateStart" class="datepicker" value="2000/01/15" size="8" /> and 
-                        <input type="text" name="dateEnd" id="dateEnd" class="datepicker" value="2020/12/31" size="8"/>
+                        Between <input type="text" name="startDate" id="startDate"  placeholder="2000/01/15" size="8" /> and 
+                        <input type="text" name="endDate" id="endDate" placeholder="2020/12/31" size="8"/>
+                        <p>(yyyy/mm/dd)
                  </div>
 
 
@@ -80,9 +81,10 @@
     <script type="text/javascript" src="./libs/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="./libs/bootstrap/js/bootstrap.min.js"></script>
         
-    <script type="text/javascript" charset="utf8" src="./DataTables-1.10.7/media/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" charset="utf-8" src="./DataTables-1.10.7/extensions/TableTools/js/dataTables.tableTools.min.js"></script>;
+    <script type="text/javascript" charset="utf8" src="./libs/dataTable/media/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./libs/dataTable/extensions/TableTools/js/dataTables.tableTools.min.js"></script>;
     <!-- <script type="text/javascript" charset="utf-8" src="http://versatrax.com/wp-content/TableTools-2.1.5/media/js/ZeroClipboard.js"></script>; -->
 
   </body>
 </html>
+
