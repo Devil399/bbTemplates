@@ -18,10 +18,10 @@ login.route('/login')
     User.findOne({email: req.body.email}, function(err, user){
       if(err) throw err;
       if(!user){
-        res.json({success: false, message: 'Ivalid email or password.'});
+        res.json({success: false, message: 'Invalid email.'});
       }else if (user) {
         if (!user.isValidPassword(req.body.password)){
-          res.json({success: false, message: 'Invalid email or password.'});
+          res.json({success: false, message: 'Invalid password.'});
         }else{
           var token = jwt.sign(user, login.get('superSecret'), {
             expiresInMinutes: 1440 // expires in 24 hours

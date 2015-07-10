@@ -91,6 +91,7 @@ api.route('/templates/:template_id/image')
 api.route('/templates/:template_id/like')
     .get(function(req, res){
         Template.findById(req.params.template_id, function(err, template){
+            alert('here');
             if(template.likedBy.indexOf(req.userId) >= 0){
               res.json({ success: false, message: "Template already liked!" });
             }else{

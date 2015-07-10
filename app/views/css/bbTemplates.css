@@ -228,4 +228,29 @@ ul {
   padding: 10px 20px;
   margin: 10px 5%;
 }
+
+/* #searchTable{
+  width: 100%;
+  border-top: 4px solid #AABCFE;
+  color: #003399;
+  font-size: 1.1em;
+}
+th{
+  font-weight: bolder;
+  background-color: #B9C9FE;
+  padding: 5px;
+  font-size: 1.1em;
+}
+tr{
+  background-color: #E8EDFF;
+  
+  padding: 5px;
+}
+td{
+  border: 1px solid white;
+  padding: 5px;
+}
+tr:hover{
+  background-color: #D0DAFD;
+} */
 /*# sourceMappingURL=bbTemplates.css.map */

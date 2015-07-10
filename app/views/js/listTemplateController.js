@@ -12,8 +12,26 @@ bbTemplates.controller("listTemplateController", function($scope, $http){
     });
   });
   $scope.filterBy = '-likes';
-  $scope.filter = function(filterBy){
-    
+  $scope.filter = function(filterBy){   
     $scope.filterBy = filterBy;
   }
+
+  $scope.liked = function(id){
+    //alert(id);
+    var url = "/api/templates/" + id + "/like";
+    cute(url, id);
+  }
+  $scope.disliked = function(id){
+    //alert(id);
+    var url = "/api/templates/" + id + "/dislike";
+    cute(url, id);
+  }
+
+  var cute = function(url, id){
+    alert(url + " " + id);
+    $http.get(url).success(function(response){
+      alert('response');
+    });
+  }
+
 });
