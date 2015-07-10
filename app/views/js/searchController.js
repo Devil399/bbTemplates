@@ -37,7 +37,9 @@ angular.module('bbTemplates', []).controller('searchController', function($scope
       });
     });
     $.fn.dataTableExt.afnFiltering.push(function( settings, data, dataIndex ) {
-        alert('here');
+        function(oSettings, aData, iDataIndex){
+            alert('here');
+        }
     });
   });
 
