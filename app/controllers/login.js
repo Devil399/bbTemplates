@@ -15,12 +15,12 @@ login.route('/login')
     res.json({message: "Yes login"});
   })
   .post(function(req, res){
-    User.findOne({email: req.body.email}, function(err, user){
+    User.findOne({email: req.body.user.email}, function(err, user){
       if(err) throw err;
       if(!user){
         res.json({success: false, message: 'Ivalid email or password.'});
       }else if (user) {
-        if (!user.isValidPassword(req.body.password)){
+        if (!user.isValidPassword(req.body.user.password)){
           res.json({success: false, message: 'Invalid email or password.'});
         }else{
           var token = jwt.sign(user, login.get('superSecret'), {
