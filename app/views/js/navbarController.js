@@ -10,8 +10,7 @@ bbTemplates.controller("navbarController", function($scope, $http){
     $scope.admin = false;
   }
   $scope.logout = function(){
-    localStorage.clear();
-    $scope.loggedIn = false;
-    $scope.admin = false;
+    localStorage.clear();;
+    window.location.replace("/");
   }
 });

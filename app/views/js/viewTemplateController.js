@@ -1,11 +1,18 @@
 bbTemplates.controller("viewTemplateController", function($scope, $http, $routeParams, $window, $location){
+  if(localStorage.getItem('admin') === 'false' || localStorage.getItem('token') === null){
+    window.location.replace("/");
+  }
   $('#modal-updateTemplate').modal('show');
   $('#modal-updateTemplate').on('hidden.bs.modal', function () {
     window.location.replace("/");
   });
   var url = "/api/templates/" + $routeParams.id;
   $http.get(url).success(function(response){
-    $scope.template = response;
+    if(response.success){
+      $scope.template = response.templates;
+    }else{
+      window.location.replace("/");
+    }
   });
   $scope.put = function(){
     $http({

@@ -7,22 +7,23 @@
         <h2 class="modal-title">Add New</h2>
       </div>
       <div class="modal-body panel add-form">
-            <div class="panel-header"></div>
-            <div class="panel-body ">
-              Name:<br/>
-              <input type="text" name="name" ng-model="template.name" placeholder="Enter name" required><br/><br/>
-              Price:<br/>
-              <input type="text" name="price" ng-model="template.price" placeholder="Enter Price" required><br/><br/>
-              Template URL:<br/>
-              <input type="text" name="url" ng-model="template.url" placeholder="Enter Url" required><br/><br/>
-              Created By:<br/>
-              <input type="text" name="createdBy" ng-model="template.createdBy" placeholder="CreatedBy" required><br/><br/><br/>
-              <span style="float:left;padding:20px">Choose an image:</span>
-              <input type="file" file-model="myFile" class="btn upld" required>
-            </div>
-            <div class="panel-footer">
-              <input type="button" class="btn btn-info" value="Create" ng-click="post()" data-dismiss="modal">
-            </div>
+        <form name="addTemplate">
+          <div class="panel-body ">
+            Name:<br/>
+            <input type="text" name="name" ng-model="template.name" placeholder="Enter name" required /><br/><br/>
+            Price:<br/>
+            <input type="text" name="price" ng-model="template.price" placeholder="Enter Price" required /><br/><br/>
+            Template URL:<br/>
+            <input type="text" name="url" ng-model="template.url" placeholder="Enter Url" required /><br/><br/>
+            Created By:<br/>
+            <input type="text" name="createdBy" ng-model="template.createdBy" placeholder="CreatedBy" required /><br/><br/><br/>
+            <span style="float:left;padding:20px">Choose an image:</span>
+            <input type="file" file-model="myFile" class="btn upld" required />
+          </div>
+          <div class="panel-footer">
+            <input type="button" class="btn btn-info" value="Create" ng-click="post()" data-dismiss="modal">
+          </div>
+        </form>
       </div>
     </div>
 

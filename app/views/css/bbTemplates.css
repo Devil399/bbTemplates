@@ -117,6 +117,7 @@ ul {
   background: url("../images/loginBg.jpg") no-repeat;
   background-size: cover; }
   .login .panel {
+    margin-left: 33.33334%;
     margin-top: 85px;
     background-color: rgba(255, 255, 255, 0.4); }
     .login .panel .panel-body {
@@ -134,6 +135,11 @@ ul {
         margin: 25px 55px;
         width: 250px;
         height: 30px; }
+      .login .panel .panel-body p {
+        display: block;
+        margin: 25px 55px;
+        font-size: 15px;
+        font-weight: 400; }
 
 .search main .panel {
   margin-bottom: 75px; }

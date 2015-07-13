@@ -13,6 +13,7 @@ api.set('superSecret', secret);
 api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({extent: true}));
 
+
 api.route('/templates')
     .get(function(req, res) {
         Template.find({}, function(err, templates) {
@@ -23,68 +24,94 @@ api.route('/templates')
         });
     });
 
-api.route('/templates/search')
-    .post(function(req, res) {
-        var name = new RegExp(req.body.name, 'i');
-        var url = new RegExp(req.body.url, 'i');
-        var createdBy = new RegExp(req.body.createdBy, 'i');
-        var likesStart = 0;
-        var likesEnd = 999999999;
-        if(req.body.likesStart){
-          likesStart = req.body.likesStart;
-        }
-        if(req.body.likesEnd){
-          likesEnd = req.body.likesEnd;
-        }
-        var dislikesStart = 0;
-        var dislikesEnd = 999999999;
-        if(req.body.dislikesStart){
-          dislikesStart = req.body.dislikesStart;
-        }
-        if(req.body.dislikesEnd){
-          dislikesEnd = req.body.dislikesEnd;
-        }
-        var priceStart = 0;
-        var priceEnd = 999999999;
-        if(req.body.priceStart){
-          priceStart = req.body.priceStart;
-        }
-        if(req.body.priceEnd){
-          priceEnd = req.body.priceEnd;
-        }
-        var dateStart = "2015-07-01T00:00:00.000Z";
-        var dateEnd = new Date();
-        if(req.body.dateStart){
-          dateStart = req.body.dateStart + "T00:00:00.000Z";
-        }
-        if(req.body.dateEnd){
-          dateEnd = req.body.dateEnd;
-        }
-        Template.find({
-          name: name,
-          url: url,
-          createdBy: createdBy,
-          likes: {$gte: likesStart, $lt: likesEnd},
-          dislikes: {$gte: dislikesStart, $lt: dislikesEnd},
-          price: {$gte: priceStart, $lt: priceEnd},
-          createdOn: {$gte: dateStart, $lt: dateEnd}
-        }, function(err, templates) {
-            if (err){
-              res.send(err);
-            }
-            res.json(templates);
-        });
-    });
 
 api.route('/templates/:template_id')
     .get(function(req, res){
         Template.findById(req.params.template_id, function(err, template){
             if (err){
-              res.send(err);
+              res.json({success: false, message: err});
             }
-            res.json(template);
+            res.json({success: true, template: template});
         });
-    })
+    });
+
+
+api.use(function(req, res, next) {
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    if (token) {
+      jwt.verify(token, api.get('superSecret'), function(err, decoded) {
+        if (err) {
+          return res.json({ success: false, message: 'Failed to authenticate token.' });
+        } else {
+          req.userId = decoded._id;
+          next();
+        }
+      });
+    } else {
+      return res.status(403).send({
+          success: false,
+          message: 'No token provided.'
+      });
+    }
+});
+
+
+api.route('/templates/:template_id/like')
+    .get(function(req, res){
+        Template.findById(req.params.template_id, function(err, template){
+            if(template.likedBy.indexOf(req.userId) >= 0){
+              var pos = template.likedBy.indexOf(req.userId);
+              template.likedBy.splice(pos, 1);
+              template.likes -= 1;
+              template.save(function(err, Temp){
+                  if (err){
+                    res.json({ success: false, message: err });
+                  }else{
+                    res.json({ success: true, message: "Template like removed!", likes: Temp.likes, likedBy: Temp.likedBy });
+                  }
+              });
+            }else{
+              template.likedBy.push(req.userId);
+              template.likes += 1;
+              template.save(function(err, Temp){
+                  if (err){
+                    res.json({ success: false, message: err });
+                  }else{
+                    res.json({ success: true, message: "Template liked!", likes: Temp.likes, likedBy: Temp.likedBy });
+                  }
+              });
+            }
+        });
+    });
+
+
+api.route('/templates/:template_id/dislike')
+    .get(function(req, res){
+        Template.findById(req.params.template_id, function(err, template){
+            if(template.dislikedBy.indexOf(req.userId) >= 0){
+              var pos = template.dislikedBy.indexOf(req.userId);
+              template.dislikedBy.splice(pos, 1);
+              template.dislikes -= 1;
+              template.save(function(err, Temp){
+                  if (err){
+                    res.json({ success: false, message: err });
+                  }else{
+                    res.json({ success: true, message: "Template dislike removed!", dislikes: Temp.dislikes, dislikedBy: Temp.dislikedBy });
+                  }
+              });
+            }else{
+              template.dislikedBy.push(req.userId);
+              template.dislikes += 1;
+              template.save(function(err, Temp){
+                  if (err){
+                    res.json({ success: false, message: err });
+                  }else{
+                    res.json({ success: true, message: "Template disliked!", dislikes: Temp.dislikes, dislikedBy: Temp.dislikedBy });
+                  }
+              });
+            }
+        });
+    });
 
 
 api.use(function(req, res, next) {
@@ -110,6 +137,7 @@ api.use(function(req, res, next) {
     }
 });
 
+
 api.route('/templates')
     .post(function(req, res){
       var template = new Template();
@@ -126,58 +154,64 @@ api.route('/templates')
     });
 
 
-api.route('/templates/:template_id/image')
-    .post(function(req, res){
-      var busboy = new Busboy({ headers: req.headers });
-      busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-        var saveTo = path.join(__dirname+'/../views/images/templates/', req.params.template_id);
-        console.log(saveTo);
-        file.pipe(fs.createWriteStream(saveTo));
-      });
-      busboy.on('finish', function() {
-        res.writeHead(200, { 'Connection': 'close' });
-        res.end("Image uploaded!");
-      });
-      return req.pipe(busboy);
-    });
+api.route('/templates/search')
+    .post(function(req, res) {
+        var name = new RegExp(req.body.template.name, 'i');
+        var url = new RegExp(req.body.template.url, 'i');
+        var createdBy = new RegExp(req.body.template.createdBy, 'i');
 
-api.route('/templates/:template_id/like')
-    .get(function(req, res){
-        Template.findById(req.params.template_id, function(err, template){
-            if(template.likedBy.indexOf(req.userId) >= 0){
-              res.json({ success: false, message: "Template already liked!" });
-            }else{
-              template.likedBy.push(req.userId);
-              template.likes += 1;
-              template.save(function(err, Temp){
-                  if (err){
-                    res.json({ success: false, message: err });
-                  }else{
-                    res.json({ success: true, message: "Template liked!" });
-                  }
-              });
+        var likesStart = 0;
+        var likesEnd = 999999999;
+        if(req.body.template.likesStart){
+          likesStart = req.body.template.likesStart;
+        }
+        if(req.body.template.likesEnd){
+          likesEnd = req.body.template.likesEnd;
+        }
+
+        var dislikesStart = 0;
+        var dislikesEnd = 999999999;
+        if(req.body.template.dislikesStart){
+          dislikesStart = req.body.template.dislikesStart;
+        }
+        if(req.body.template.dislikesEnd){
+          dislikesEnd = req.body.template.dislikesEnd;
+        }
+
+        var priceStart = 0;
+        var priceEnd = 999999999;
+        if(req.body.template.priceStart){
+          priceStart = req.body.template.priceStart;
+        }
+        if(req.body.template.priceEnd){
+          priceEnd = req.body.template.priceEnd;
+        }
+
+        var createdOnStart = "2015-07-01T00:00:00.000Z";
+        var createdOnEnd = new Date();
+        if(req.body.template.createdOnStart){
+          createdOnStart = req.body.template.createdOnStart + "T00:00:00.000Z";
+        }
+        if(req.body.template.createdOnEnd){
+          createdOnEnd = req.body.template.createdOnEnd + "T23:59:59.999Z";
+        }
+
+        Template.find({
+          name: name,
+          url: url,
+          createdBy: createdBy,
+          likes: {$gte: likesStart, $lte: likesEnd},
+          dislikes: {$gte: dislikesStart, $lte: dislikesEnd},
+          price: {$gte: priceStart, $lte: priceEnd},
+          createdOn: {$gte: createdOnStart, $lte: createdOnEnd}
+        }, function(err, templates) {
+            if (err){
+              res.send(err);
             }
+            res.json(templates);
         });
     });
 
-api.route('/templates/:template_id/dislike')
-    .get(function(req, res){
-        Template.findById(req.params.template_id, function(err, template){
-            if(template.likedBy.indexOf(req.userId) >= 0){
-              res.json({ success: false, message: "Template already disliked!" });
-            }else{
-              template.dislikedBy.push(req.userId);
-              template.dislikes += 1;
-              template.save(function(err, Temp){
-                  if (err){
-                    res.json({ success: false, message: err });
-                  }else{
-                    res.json({ success: true, message: "Template disliked!" });
-                  }
-              });
-            }
-        });
-    });
 
 api.route('/templates/:template_id')
     .post(function(req, res) {
@@ -208,5 +242,22 @@ api.route('/templates/:template_id')
             res.json({ message: 'Template deleted!' });
         });
     });
+
+
+api.route('/templates/:template_id/image')
+    .post(function(req, res){
+      var busboy = new Busboy({ headers: req.headers });
+      busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+        var saveTo = path.join(__dirname+'/../views/images/templates/', req.params.template_id);
+        console.log(saveTo);
+        file.pipe(fs.createWriteStream(saveTo));
+      });
+      busboy.on('finish', function() {
+        res.writeHead(200, { 'Connection': 'close' });
+        res.end("Image uploaded!");
+      });
+      return req.pipe(busboy);
+    });
+
 
 module.exports = api;

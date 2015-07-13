@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="./libs/dataTables/media/css/jquery.dataTables.min.css"></script>
     <link rel="stylesheet" href="./libs/dataTables/extensions/TableTools/css/dataTables.tableTools.min.css">
     <link rel="stylesheet" href="./css/bbTemplates.css">
+
+
+    <script type="text/javascript" src="./libs/angular/angular.min.js"></script>
+    <script type="text/javascript" src="./libs/angular/angular-route.min.js"></script>
+    <script type="text/javascript" src="./js/searchApp.js"></script>
+    <script type="text/javascript" src="./js/navbarController.js"></script>
+    <script type="text/javascript" src="./js/searchController.js"></script>
+    <script type="text/javascript" src="./libs/jquery/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="./libs/dataTables/media/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./libs/dataTables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+    <script type="text/javascript" src="./libs/bootstrap/js/bootstrap.min.js"></script>
   </head>
 
   <body ng-app="bbTemplates" class="search">
@@ -38,16 +49,16 @@
           <div class="panel">
             <div class="panel-body">
               <input type="text" name="name" ng-model="template.name" placeholder="Name">
-              <input type="text" name="price" ng-model="template.priceStart" placeholder="Price-starting">
-              <input type="text" name="price" ng-model="template.priceEnd" placeholder="Price-ending">
+              <input type="number" name="price" ng-model="template.priceStart" placeholder="Price-starting">
+              <input type="number" name="price" ng-model="template.priceEnd" placeholder="Price-ending">
               <input type="text" name="name" ng-model="template.url" placeholder="Url">
               <input type="text" name="name" ng-model="template.createdBy" placeholder="createdBy">
               <input type="text" name="name" ng-model="template.createdOnStart" placeholder="createdOn-startimg">
               <input type="text" name="name" ng-model="template.createdOnEnd" placeholder="createdOn-ending">
-              <input type="text" name="name" ng-model="template.likesStart" placeholder="Likes-starting">
-              <input type="text" name="name" ng-model="template.likesEnd" placeholder="Likes-ending">
-              <input type="text" name="name" ng-model="template.dislikesStart" placeholder="Dislikes-starting">
-              <input type="text" name="name" ng-model="template.dislikesEnd" placeholder="Dislikes-ending">
+              <input type="number" name="name" ng-model="template.likesStart" placeholder="Likes-starting">
+              <input type="number" name="name" ng-model="template.likesEnd" placeholder="Likes-ending">
+              <input type="number" name="name" ng-model="template.dislikesStart" placeholder="Dislikes-starting">
+              <input type="number" name="name" ng-model="template.dislikesEnd" placeholder="Dislikes-ending">
               <button type="button" class="btn btn-info" name="button" ng-click="search()">Search</button>
             </div>
           </div>
@@ -75,14 +86,5 @@
     <div ng-view></div>
 
 
-    <script type="text/javascript" src="./libs/angular/angular.min.js"></script>
-    <script type="text/javascript" src="./libs/angular/angular-route.min.js"></script>
-    <script type="text/javascript" src="./js/searchApp.js"></script>
-    <script type="text/javascript" src="./js/navbarController.js"></script>
-    <script type="text/javascript" src="./js/searchController.js"></script>
-    <script type="text/javascript" src="./libs/jquery/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="./libs/dataTables/media/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" charset="utf-8" src="./libs/dataTables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>;
-    <script type="text/javascript" src="./libs/bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>

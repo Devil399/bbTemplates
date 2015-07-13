@@ -1,4 +1,7 @@
 bbTemplates.controller("addTemplateController", function($scope, $http, $window, $location){
+  if(localStorage.getItem('admin') === 'false' || localStorage.getItem('token') === null){
+    window.location.replace("/");
+  }
   $('#modal-addNewTemplate').modal('show');
   $('#modal-addNewTemplate').on('hidden.bs.modal', function () {
     window.location.replace("/");
