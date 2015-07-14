@@ -11,18 +11,17 @@ login.use(bodyParser.json());
 login.use(bodyParser.urlencoded({extent: true}));
 
 login.route('/login')
-  .get(function(req, res){
-    res.json({message: "Yes login"});
-  })
   .post(function(req, res){
-    User.findOne({email: req.body.email}, function(err, user){
+    User.findOne({email: req.body.user.email}, function(err, user){
       if(err) throw err;
       if(!user){
-        res.json({success: false, message: 'Invalid email.'});
+        res.json({success: false, message: 'Invalid email or password!'});
       }else if (user) {
-        if (!user.isValidPassword(req.body.password)){
-          res.json({success: false, message: 'Invalid password.'});
+        if (!user.isValidPassword(req.body.user.password)){
+          res.json({success: false, message: 'Invalid email or password!'});
         }else{
+          user.passwordHash = "";
+          user.salt = "";
           var token = jwt.sign(user, login.get('superSecret'), {
             expiresInMinutes: 1440 // expires in 24 hours
           });
@@ -37,29 +36,23 @@ login.route('/login')
     });
   });
 
-login.get('/setup', function(req, res) {
+// login.get('/register', function(req, res) {
+//
+//     // create a user
+//     var user = new User({
+//       name: '',
+//       email: '',
+//     });
+//
+//     user.setPassword('');
+//
+//     // save the user
+//     user.save(function(err) {
+//       if (err) throw err;
+//       console.log('User saved successfully');
+//       res.json({ success: "user saved" });
+//     });
+//   });
 
-    // create a sample user
-    var user = new User({
-      name: 'Shashank',
-      email: 'sshekhar1094@gmail.com',
-      admin: true
-    });
-
-    user.setPassword('admin');
-
-    // save the sample user
-    user.save(function(err) {
-      if (err) throw err;
-      console.log('User saved successfully');
-      res.json({ success: "user saved" });
-    });
-  });
-
-login.get('/users', function(req, res) {
-  User.find({}, function(err, users) {
-    res.json(users);
-  });
-});
 
 module.exports = login;

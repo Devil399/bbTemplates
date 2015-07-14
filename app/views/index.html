@@ -6,119 +6,7 @@
     <link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./libs/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/bbTemplates.css">
-    <link rel="stylesheet" type="text/css" href="./DataTables-1.10.7/media/css/jquery.dataTables.css"> 
-    <script type="text/javascript" charset="utf8" src="./DataTables-1.10.7/media/js/jquery.js"></script>     
-    <script type="text/javascript" charset="utf8" src="./DataTables-1.10.7/media/js/jquery.dataTables.js"></script>
-  </head>
 
-  <body ng-app="bbTemplates">
-    <nav class="navbar navbar-inverse" ng-controller="navbarController">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/">BBtemplates</a>
-        </div><!-- /.navbar header -->
-
-        <div class="collapse navbar-collapse pull-right">
-          <ul class="nav navbar-nav">
-            <li>
-              <!-- <a ng-if="admin" href="/#/addTemplate" data-toggle="modal" data-target="#modal-new">Add new template</a> -->
-              <a href="/#/addTemplate" data-toggle="modal" data-target="#modal-new">Add new template</a>
-            </li>
-            <li>
-              <a href="/search.html">Admin Search</a>
-            </li>
-            <li>
-              <a href="/login.html" ng-if="!loggedIn">Login</a>
-            </li>
-            
-            <li>
-              <a href="" ng-click="logout()" ng-if="loggedIn">Logout</a>
-            </li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
-
-    <div class="head-part">
-      <h2 class="col-md-2 col-sm-5 col-xs-12" style="padding:20px 30px">Buy <span style="font-size:1.4em; display:block;">Themes</span></h2>
-      <h3 class="pull-right hidden-xs" style="padding:46px 30px 0 0">Some Slogan</h3>
-    </div>
-
-    <main class="container" ng-controller="listTemplateController">
-
-      <div class="col-md-12">
-
-        <div class="row" style="margin-left:-5%; margin-right:-5%;">
-          <div class="filter-row">
-            <div class="col-md-7 col-sm-8 col-xs-8 sort-by">
-              <div class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-default active" ng-click="filter('-likes')" >
-                      <input type="radio" checked="checked" /><span class="sort-text">Popular&nbsp;<span class="glyphicon glyphicon-arrow-up"></span></span>
-                  </label> 
-                  <label class="btn btn-default" ng-click="filter('likes')">
-                      <input type="radio" checked="checked"/><span class="sort-text">Popular&nbsp;<span class="glyphicon glyphicon-arrow-down"></span></span>
-                  </label> 
-                  <label class="btn btn-default" ng-click="filter('-price')">
-                      <input type="radio" checked="checked"/><span class="sort-text">Price&nbsp;<span class="glyphicon glyphicon-arrow-up"></span></span>
-                  </label> 
-                  <label class="btn btn-default" ng-click="filter('price')">
-                      <input type="radio" checked="checked" /><span class="sort-text">Price&nbsp;<span class="glyphicon glyphicon-arrow-down"></span></span>
-                  </label> 
-                  <label class="btn btn-default" ng-click="filter('-createdOn')">
-                      <input type="radio" checked="checked" /><span class="sort-text">Newest</span>
-                  </label> 
-                  <label class="btn btn-default" ng-click="filter('createdOn')">
-                      <input type="radio" checked="checked" /><span class="sort-text">Oldest</span>
-                  </label> 
-              </div>
-            </div>
-            <div class="col-md-2 hidden-sm hidden-xs">
-              <div class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-default active">
-                      <input type="radio" value="grid" checked="checked" /> <i class="fa fa-th"></i>
-                  </label> 
-                  <label class="btn btn-default disabled">
-                      <input type="radio" value="list" /> <i class="fa fa-list"></i>
-                  </label> 
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-4">
-              <input type="text" name="name" value="" class="filter-search form-control" placeholder="Search in page..." ng-model="search">
-            </div>
-          </div>
-        </div>
-        
-          </div> <!-- Filter panel -->
-
-      <div class="row">
-        <div class="col-md-12 temp-panels">
-          <div class="templatePanel panel " ng-repeat="template in templates | filter:search | orderBy:filterBy">
-            <div class="panel-header">
-              <a href="{{template.url}}"><img src="/images/templates/{{template._id}}" alt="" width="100%" height="300px" lowsrc="/images/spinner.gif"/></a>
-            </div>
-            <div class="panel-body">
-              <h5><a href="{{template.url}}"><big><strong>{{template.name}} — </strong></big></a>
-              <i class="fa fa-inr"></i>{{template.price}}</h5>
-              <p><span class="fade">Created by</span><strong> {{template.createdBy}} </strong>
-              <span class="fade">on</span> <strong>{{template.createdOn}}</strong></p>
-            </div>
-            <div class="panel-footer">
-              <div class="pull-left">
-                <a href=""><i class="fa fa-thumbs-up" ng-click="liked(template._id)"></i>{{template.likes}}</a>
-                <a href=""><i class="fa fa-thumbs-down" ng-click="disliked(template._id)"></i>{{template.dislikes}}</a>
-              </div>
-              <div class="pull-right">
-                <a  href="/#/{{template._id}}"  data-toggle="modal" data-target="#myModal" ><i class="fa fa-pencil-square-o"></i></a>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-          </div>
-        </div> <!-- Template panels -->
-        
-      </div>
-    </main>
-
-    <div ng-view></div>
 
 
 
@@ -131,5 +19,85 @@
     <script type="text/javascript" src="./js/viewTemplateController.js"></script>
     <script type="text/javascript" src="./libs/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="./libs/bootstrap/js/bootstrap.min.js"></script>
+  </head>
+
+  <body ng-app="bbTemplates">
+    <nav class="navbar navbar-inverse" ng-controller="navbarController">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">BBtemplates</a>
+        </div><!-- /.navbar header -->
+
+        <div class="collapse navbar-collapse pull-right">
+          <ul class="nav navbar-nav">
+            <li>
+              <a ng-if="admin" href="/search.html">Search</a>
+            </li>
+            <li>
+              <a ng-if="admin" href="/#/addTemplate">Add new template</a>
+            </li>
+            <li>
+              <a href="/login.html" ng-if="!loggedIn">Login</a>
+            </li>
+            <li>
+              <a href="" ng-click="logout()" ng-if="loggedIn">Logout</a>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <main class="container" ng-controller="listTemplateController">
+      <div class="row">
+        <div class="col-md-3 hidden-sm hidden-xs filter-panel">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="text" name="name" value="" class="filter-search form-control" placeholder="Search.." ng-model="search">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 filter-options">
+                <h6>ORDER BY</h6>
+                <ul>
+                  <li ng-click="filter('-likes')">Likes</li>
+                  <li ng-click="filter('-dislikes')">Dislikes</li>
+                  <li ng-click="filter('price')">Price - Lowest</li>
+                  <li ng-click="filter('-price')">Price - Highest</li>
+                  <li ng-click="filter('-createdOn')">Date - Newest</li>
+                  <li ng-click="filter('createdOn')">Date - Oldest</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div> <!-- Filter panel -->
+        <div class="col-md-9">
+          <div class="templatePanel panel" ng-repeat="template in templates | filter:search | orderBy:filterBy">
+            <div class="panel-header">
+              <a href="{{template.url}}"><img src="/images/templates/{{template._id}}" alt="" width="100%" height="158px"/></a>
+            </div>
+            <div class="panel-body">
+              <p><a href="{{template.url}}"><strong>{{template.name}}</strong></a></p>
+              <p><i class="fa fa-inr"></i>{{template.price}}</p>
+              <p><span class="fade">by</span> {{template.createdBy}}</p>
+              <p><span class="fade">on</span> {{template.createdOn}}</p>
+            </div>
+            <div class="panel-footer">
+              <div class="pull-left">
+                <a href="" ng-click="like(template._id)"><i class="fa fa-thumbs-o-up"></i>{{template.likes}}</a>
+                <a href="" ng-click="dislike(template._id)"><i class="fa fa-thumbs-o-down"></i>{{template.dislikes}}</a>
+              </div>
+              <div class="pull-right">
+                <a ng-if="admin" href="/#/{{template._id}}"><i class="fa fa-pencil-square-o"></i></a>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div> <!-- Template panels -->
+
+      </div>
+    </main>
+
+    <div ng-view></div>
   </body>
 </html>

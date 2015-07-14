@@ -1,14 +1,9 @@
-
-angular.module('bbTemplates', []).controller('searchController', function($scope, $http) {
-  //console.log('here');
-  
-  if(localStorage.getItem('admin') === 'true'){
-    $scope.admin = true;
-  }else{
-    $scope.admin = false;
+bbTemplates.controller("searchController", function($scope, $http){
+  if(localStorage.getItem('admin') === 'false' || localStorage.getItem('token') === null){
+    window.location.replace("/");
   }
-  var obj;
   var url = "/api/templates";
+
 
   $http.get(url).success(function(response){
     $scope.templates = response;
@@ -16,54 +11,74 @@ angular.module('bbTemplates', []).controller('searchController', function($scope
       template.createdOn = template.createdOn.replace(/T.*$/,'');
     });
 
+    $('#searchTable').DataTable({
+      bDestroy: true,
+      data: $scope.templates,
+      columns: [
+          { data: 'name' },
+          { data: 'price' },
+          { data: 'url' },
+          { data: 'createdBy' },
+          { data: 'createdOn' },
+          { data: 'likes' },
+          { data: 'dislikes' }
+      ],
+      dom: 'T<"clear">lfrtip',
+      tableTools: {
+          "sSwfPath": "./libs/dataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf"
+      }
+    });
+  });
 
-
-    //function for custom filters on data Table
-    $.fn.dataTableExt.afnFiltering.push(
-            function( oSettings, aData, iDataIndex ) {
-                //Getting start an end date
-                var sdt = document.getElementById('startDate').value; //start date
-                var edt = document.getElementById('endDate').value; //end date
-                var createddt = aData[4]; //Created on, data on 4th column
-
-                if(sdt === "") var dt1=sdt //initially no date defined
-                    else var dt1 = parseDt(sdt);
-                if(edt === "")var dt2 = edt
-                    else var dt2 = parseDt(edt);
-                var dt = parseDt2(createddt); 
-                
-                if ( dt1 == "" && dt <= dt2){
-                    return true; //start date not given bt end date given
-                }
-                else if ( dt1 =="" && "" <= dt2 ){
-                    return true;
-                }
-                else if ( dt1 <= dt && "" == dt2 ){
-                    return true;
-                }
-                else if ( dt1 <= dt && dt <= dt2 ){
-                    return true;
-                }
-                return false;
-            }
-        );
-
-    function parseDt(rawDate){ 
-        var dateArr = rawDate.split('/');
-        var parsedDate = dateArr[0] + dateArr[1] + dateArr[2];
-        return parsedDate;
+  auto_comp = function(name, urlAuto, createdBy){
+    
+    if(name){
+      name =  document.getElementById('srch-name').value;
+      complete('name', name)
     }
-    function parseDt2(rawDate){
-        var dateArr = rawDate.split('-');
-        var parsedDate = dateArr[0] + dateArr[1] + dateArr[2];
-        return parsedDate;
-    }
+    if(urlAuto) urlAuto = document.getElementById('srch-url').value;
+    if(createdBy) createdBy = document.getElementById('srch-by').value;
+  }
 
+  complete = function(attr, val){
+    $http({
+      method: 'POST',
+      url: "/api/templates/search",
+      data: $.param({template: $scope.template}),
+      headers: {'x-access-token': localStorage.getItem('token'), 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+    }).success(function(response){
+        var nameArray = [];
+        for(i=0; i<response.length; i++){
+          nameArray.push(response[i].name);
+        }
+        $("#srch-name").autocomplete({
+            source : nameArray
+        });
 
-    $(document).ready( function () {
-      table = $('#searchTable').DataTable({
+    });
+    
+  };
+
+  url = "/api/templates";
+  $scope.search = function(){
+    $http({
+      method: 'POST',
+      url: url + "/search",
+      data: $.param({template: $scope.template}),
+      headers: {'x-access-token': localStorage.getItem('token'), 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+    }).success(function(response){
+      console.log(response);
+      $scope.templates = response;
+      $scope.templates.forEach(function(template){
+        template.createdOn = template.createdOn.replace(/T.*$/,'');
+      });
+
+      $("#searchTable").dataTable().fnDestroy();
+
+      $('#searchTable').DataTable({
+        bDestroy: true,
         data: $scope.templates,
-        columns: [ //show the following columns
+        columns: [
             { data: 'name' },
             { data: 'price' },
             { data: 'url' },
@@ -73,16 +88,10 @@ angular.module('bbTemplates', []).controller('searchController', function($scope
             { data: 'dislikes' }
         ],
         dom: 'T<"clear">lfrtip',
-        tableTools: { //tools for csv,excel,pdf....
-            "sSwfPath": "./libs/dataTable/extensions/TableTools/swf/copy_csv_xls_pdf.swf"
+        tableTools: {
+            "sSwfPath": "./libs/dataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf"
         }
       });
-
-      $('#startDate').keyup( function() { table.draw(); } ); //redraw table on changing start/end dates
-      $('#endDate').keyup( function() {table.draw(); } );
     });
-  });
-
+  };
 });
-
-

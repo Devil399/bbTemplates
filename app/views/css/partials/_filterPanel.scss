@@ -1,5 +1,5 @@
 .filter-panel{
-  border-left: $filterPanel-border;
+  border-right: $filterPanel-border;
   .filter-search{
     @include border-radius(10px);
     background: url('/images/search.png') white no-repeat 9px 8px/12px !important;

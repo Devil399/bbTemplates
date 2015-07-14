@@ -5,86 +5,89 @@
     <title>bbTemplates</title>
     <link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./libs/dataTables/media/css/jquery.dataTables.min.css"></script>
+    <link rel="stylesheet" href="./libs/dataTables/extensions/TableTools/css/dataTables.tableTools.min.css">
     <link rel="stylesheet" href="./css/bbTemplates.css">
-    <link rel="stylesheet" type="text/css" href="./libs/dataTable/media/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="./libs/dataTable/extensions/TableTools/css/dataTables.tableTools.min.css">
+    <link rel="stylesheet" type="text/css" href="./libs/jquery/jquery-ui.min.css">
+
+
+    <script type="text/javascript" src="./libs/angular/angular.min.js"></script>
+    <script type="text/javascript" src="./libs/angular/angular-route.min.js"></script>
+    <script type="text/javascript" src="./js/searchApp.js"></script>
+    <script type="text/javascript" src="./js/navbarController.js"></script>
+    <script type="text/javascript" src="./js/searchController.js"></script>
+    <script type="text/javascript" src="./libs/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="./libs/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="./libs/dataTables/media/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./libs/dataTables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+    <script type="text/javascript" src="./libs/bootstrap/js/bootstrap.min.js"></script>
   </head>
 
-  <body ng-app="bbTemplates" >
-    <nav class="navbar navbar-inverse">
+  <body ng-app="bbTemplates" class="search">
+    <nav class="navbar navbar-inverse" ng-controller="navbarController">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="/">BBtemplates</a>
         </div><!-- /.navbar header -->
-      </div>
+
+        <div class="collapse navbar-collapse pull-right">
+          <ul class="nav navbar-nav">
+            <li>
+              <a ng-if="admin" href="/#/addTemplate">Add new template</a>
+            </li>
+            <li>
+              <a href="/login.html" ng-if="!loggedIn">Login</a>
+            </li>
+            <li>
+              <a href="" ng-click="logout()" ng-if="loggedIn">Logout</a>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
     </nav>
 
-    <div class="head-part">
-      <h2 class="col-md-2 col-sm-5 col-xs-12" style="padding:20px 30px">Buy <span style="font-size:1.4em; display:block;">Themes</span></h2>
-      <h3 class="pull-right hidden-xs" style="padding:46px 30px 0 0">Some Slogan</h3>
-    </div>
+    <main class="container" ng-controller="searchController">
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <div class="panel">
+            <div class="panel-body">
+              <input type="text" name="name" ng-model="template.name" placeholder="Name" onkeyup="auto_comp('name')" id="srch-name">
+              <input type="number" name="price" ng-model="template.priceStart" placeholder="Price-starting">
+              <input type="number" name="price" ng-model="template.priceEnd" placeholder="Price-ending">
+              <input type="text" name="name" ng-model="template.url" placeholder="Url" id="srch-url">
+              <input type="text" name="name" ng-model="template.createdBy" placeholder="createdBy" id="srch-by">
+              <input type="text" name="name" ng-model="template.createdOnStart" placeholder="createdOn-startimg">
+              <input type="text" name="name" ng-model="template.createdOnEnd" placeholder="createdOn-ending">
+              <input type="number" name="name" ng-model="template.likesStart" placeholder="Likes-starting">
+              <input type="number" name="name" ng-model="template.likesEnd" placeholder="Likes-ending">
+              <input type="number" name="name" ng-model="template.dislikesStart" placeholder="Dislikes-starting">
+              <input type="number" name="name" ng-model="template.dislikesEnd" placeholder="Dislikes-ending">
+              <button type="button" class="btn btn-info" name="button" ng-click="search()">Search</button>
+              <div id="testing"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <table id="searchTable" class="display">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Price</th>
+                      <th>Url</th>
+                      <th>Created by</th>
+                      <th>Created on</th>
+                      <th>Likes</th>
+                      <th>Dislikes</th>
+                  </tr>
+              </thead>
+          </table>
+        </div>
+      </div>
+    </main>
 
+    <div ng-view></div>
 
-    
-        <main class="container" ng-controller="searchController">
-            
-            <!-- <table border="0" cellspacing="5" cellpadding="5">
-                <tbody>
-                    <tr>
-                        <td>Created By:</td>
-                        <td><input type="text" id="usrnm" name="usrnm"></td>
-                    </tr>
-                    <tr>
-                        <td>Start Date:</td>
-                        <td><input type="date" id="startDate" name="startDate"></td>
-                    </tr>
-                    <tr>
-                        <td>End Date:</td>
-                        <td><input type="date" id="endDate" name="endDate"></td>
-                    </tr>
-                </tbody>
-            </table> -->
-
-                 <div class="dateControlBlock">
-                        Between <input type="text" name="startDate" id="startDate"  placeholder="2000/01/15" size="8" /> and 
-                        <input type="text" name="endDate" id="endDate" placeholder="2020/12/31" size="8"/>
-                        <p>(yyyy/mm/dd)
-                 </div>
-
-
-            <table id="searchTable" class="display">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Url</th>
-                        <th>Created by</th>
-                        <th>Created on</th>
-                        <th>Likes</th>
-                        <th>Dislikes</th>
-                    </tr>
-                </thead>
-            </table>
-
-        </main>
-        
-
-
-    <!-- <div ng-view></div> -->
-
-    
-    
-    
-    <script type="text/javascript" src="./libs/angular/angular.min.js"></script>
-    <script type="text/javascript" src="./libs/angular/angular-route.min.js"></script>
-    <script type="text/javascript" src="./js/searchController.js"></script>
-    <script type="text/javascript" src="./libs/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="./libs/bootstrap/js/bootstrap.min.js"></script>
-        
-    <script type="text/javascript" charset="utf8" src="./libs/dataTable/media/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" charset="utf-8" src="./libs/dataTable/extensions/TableTools/js/dataTables.tableTools.min.js"></script>;
-    <!-- <script type="text/javascript" charset="utf-8" src="http://versatrax.com/wp-content/TableTools-2.1.5/media/js/ZeroClipboard.js"></script>; -->
 
   </body>
 </html>
-

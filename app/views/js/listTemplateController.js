@@ -4,6 +4,7 @@ bbTemplates.controller("listTemplateController", function($scope, $http){
   }else{
     $scope.admin = false;
   }
+
   var url = "/api/templates";
   $http.get(url).success(function(response){
     $scope.templates = response;
@@ -11,27 +12,43 @@ bbTemplates.controller("listTemplateController", function($scope, $http){
       template.createdOn = template.createdOn.replace(/T.*$/,'');
     });
   });
+
   $scope.filterBy = '-likes';
-  $scope.filter = function(filterBy){   
+  $scope.filter = function(filterBy){
     $scope.filterBy = filterBy;
   }
 
-  $scope.liked = function(id){
-    //alert(id);
-    var url = "/api/templates/" + id + "/like";
-    cute(url, id);
-  }
-  $scope.disliked = function(id){
-    //alert(id);
-    var url = "/api/templates/" + id + "/dislike";
-    cute(url, id);
-  }
-
-  var cute = function(url, id){
-    alert(url + " " + id);
-    $http.get(url).success(function(response){
-      alert('response');
+  $scope.like = function(id){
+    $http.get(url + "/" + id + "/like", {
+      headers: {'x-access-token': localStorage.getItem('token')}
+    }).success(function(response){
+      if(response.success){
+        $scope.templates.forEach(function(template){
+          if(template._id === id){
+            template.likes = response.likes;
+            template.likedBy = response.likedBy;
+          }
+        });
+      }else{
+        window.location.replace("/login.html");
+      }
     });
   }
 
+  $scope.dislike = function(id){
+    $http.get(url + "/" + id + "/dislike", {
+      headers: {'x-access-token': localStorage.getItem('token')}
+    }).success(function(response){
+      if(response.success){
+        $scope.templates.forEach(function(template){
+          if(template._id === id){
+            template.dislikes = response.dislikes;
+            template.dislikedBy = response.dislikedBy;
+          }
+        });
+      }else{
+        window.location.replace("/login.html");
+      }
+    });
+  }
 });
